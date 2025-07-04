@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced To-Do with Timers</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="outer">
+    <h1>To-Do List</h1>
+    
+    <div id="userInput">
+      <input type="text" id="inpu" placeholder="Enter Task" />
+      <input id="startTime" />
+      <input type="number" id="duration" placeholder="Duration (min)" min="1" />
+      <button id="addBtn">Add</button>
+    </div>
+
+    <div class="main-content">
+  <div class="battery-container">
+    <span class="battery-label">Completed</span>
+    <div class="battery-outer">
+      <div id="batteryCompletedFill" class="battery-fill"></div>
+    </div>
+    <div id="batteryCompletedText" class="battery-percent">0%</div>
+  </div>
+
+  <div id="tasks"></div>
+
+  <div class="battery-container">
+    <span class="battery-label">Remaining</span>
+    <div class="battery-outer">
+      <div id="batteryRemainingFill" class="battery-fill remaining"></div>
+    </div>
+    <div id="batteryRemainingText" class="battery-percent">100%</div>
+  </div>
+</div>
+
+
+    
+    <div id="tasks"></div>
+  </div>
+  
+  <div id="liveClock">🕒</div>
+  <script src="script.js"></script>
+</body>
+</html>
