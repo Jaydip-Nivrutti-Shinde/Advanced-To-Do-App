@@ -22,5 +22,5 @@
      </pre>
 
 <h1>Click following to preview</h1>  
-<button><a href="advanced-and-attractive-to-do-app.netlify.app">See</a></button> 
+<button><a href="https://advanced-and-attractive-to-do-app.netlify.app/">See</a></button> 
 
