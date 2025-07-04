@@ -20,3 +20,7 @@
      2} The enter the time to start the task
      3} then enter the duration of the task completion
      </pre>
+
+<h1>Click following to preview</h1>  
+<button><a href="advanced-and-attractive-to-do-app.netlify.app">See</a></button> 
+
