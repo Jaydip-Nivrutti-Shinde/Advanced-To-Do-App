@@ -15,7 +15,8 @@
         3} JS </pre>
 
 <h1>How to use it</h1>
-<pre>1} Firstly Enter the task you want to list
+<pre>
+     1} Firstly Enter the task you want to list
      2} The enter the time to start the task
      3} then enter the duration of the task completion
      </pre>
