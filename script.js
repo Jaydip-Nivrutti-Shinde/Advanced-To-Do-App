@@ -1,19 +1,21 @@
+// script.js
 const input = document.getElementById("inpu");
 const addBtn = document.getElementById("addBtn");
 const tasksDiv = document.getElementById("tasks");
 const startTimeInput = document.getElementById("startTime");
 const durationInput = document.getElementById("duration");
-const userEmailInput = document.getElementById("userEmail");
 
+// Force text type to allow placeholder in all browsers
 startTimeInput.type = "time";
+
+
+let taskTimers = [];
 
 addBtn.addEventListener("click", () => {
   const taskText = input.value.trim();
   const startTime = startTimeInput.value;
   const duration = parseInt(durationInput.value);
-  const userEmail = userEmailInput.value.trim();
-
-  if (!taskText || !startTime || isNaN(duration) || duration <= 0 || !userEmail) return;
+  if (!taskText || !startTime || isNaN(duration) || duration <= 0) return;
 
   const taskItem = document.createElement("div");
   taskItem.className = "task-item";
@@ -37,9 +39,6 @@ addBtn.addEventListener("click", () => {
 
   const btns = document.createElement("div");
   btns.className = "task-buttons";
-
-  const emailStatus = document.createElement("span");
-  emailStatus.className = "email-status";
 
   const editBtn = document.createElement("button");
   editBtn.textContent = "✏️";
@@ -76,7 +75,6 @@ addBtn.addEventListener("click", () => {
   btns.appendChild(infoBtn);
   btns.appendChild(delBtn);
 
-  taskItem.appendChild(emailStatus);
   taskItem.appendChild(checkbox);
   taskItem.appendChild(li);
   taskItem.appendChild(startInfo);
@@ -89,9 +87,6 @@ addBtn.addEventListener("click", () => {
   startTimeInput.value = "";
   durationInput.value = "";
   updateBatteryStatus();
-
-  // Schedule Email Notification:
-  scheduleEmailNotification(taskItem, taskText, startTime, userEmail, emailStatus);
 });
 
 function updateBatteryStatus() {
@@ -159,55 +154,4 @@ function checkTimers(now) {
       timerDisplay.textContent = "✅ Time's up";
     }
   });
-}
-
-// Add this at the end:
-function createBlueTick() {
-  const tick = document.createElement("span");
-  tick.textContent = "✅";
-  tick.style.color = "blue";
-  tick.style.marginRight = "5px";
-  tick.title = "Email sent";
-  return tick;
-}
-
-function createRedCross() {
-  const cross = document.createElement("span");
-  cross.textContent = "❌";
-  cross.style.color = "red";
-  cross.style.marginRight = "5px";
-  cross.title = "Email failed";
-  return cross;
-}
-
-function scheduleEmailNotification(taskItem, taskText, startTime, userEmail, emailStatusContainer) {
-  const [h, m] = startTime.split(":").map(Number);
-  const start = new Date();
-  start.setHours(h, m, 0, 0);
-
-  const reminderTime = new Date(start.getTime() - 2 * 60000); // 2 minutes before
-  const now = new Date();
-  const delay = reminderTime.getTime() - now.getTime();
-
-  if (delay > 0) {
-    setTimeout(() => {
-      fetch("https://script.google.com/macros/s/AKfycbxqXvpPHefFWbh_Kk3BIgCWtg_ixvUrHb1RJ3PhNCxhH9bipi4h9GlVRVUnus73PTkzRg/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: userEmail, task: taskText, time: startTime })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === "success") {
-          emailStatusContainer.appendChild(createBlueTick());
-        } else {
-          emailStatusContainer.appendChild(createRedCross());
-        }
-      })
-      .catch(err => {
-        console.error("❌ Email error:", err);
-        emailStatusContainer.appendChild(createRedCross());
-      });
-    }, delay);
-  }
 }
